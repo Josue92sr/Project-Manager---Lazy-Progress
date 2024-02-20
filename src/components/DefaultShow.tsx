@@ -1,10 +1,11 @@
-// import { showFormScreen } from "../store/index"
+import { useDispatch } from "react-redux"
+
+import { showFormScreen } from "../store/index"
 import image from "../assets/no-projects.png"
-import useContextProvider from "../hooks/useContext"
 function DefaultShow() {
-  const { pageToShow, startForm } = useContextProvider()
+  const dispatch = useDispatch()
   const handleNewForm = () => {
-    startForm()
+    dispatch(showFormScreen())
   }
   return (
     <div className="mt-auto mb-auto flex flex-col items-center">

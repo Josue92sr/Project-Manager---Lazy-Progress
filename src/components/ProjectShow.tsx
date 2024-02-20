@@ -1,19 +1,20 @@
 import { propsType } from "./ProjectList"
 import { FiXCircle } from "react-icons/fi"
+import { selectorApp } from "../hooks/useDispatchSelector"
 
-import { type projectState } from "../context/ContextProvider"
 import ProjectDetails from "./ProjectDetails"
 import DefaultShow from "./DefaultShow"
 import ProjectForm from "./ProjectForm"
-import useContextProvider from "../hooks/useContext"
 
 function ProjectList({ onShow, open }: propsType) {
-  const { pageToShow } = useContextProvider()
+  const pageToShow = selectorApp(state => {
+    return state.openForm.showDetails
+  })
 
   let renderPage: React.JSX.Element | undefined
   if (pageToShow === "form") renderPage = <ProjectForm />
-  if (pageToShow === "project") renderPage = <ProjectDetails />
-  if (pageToShow === "default") renderPage = <DefaultShow />
+  if (pageToShow === "details") renderPage = <ProjectDetails />
+  if (pageToShow === "landing") renderPage = <DefaultShow />
 
   const handleShow = () => {
     onShow(true)

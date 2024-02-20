@@ -1,8 +1,14 @@
 // import section
 
-import useContextProvider from "../hooks/useContext"
-
-import { type FormEvent, type ChangeEvent, useState } from "react"
+import { dispatchApp, selectorApp } from "../hooks/useDispatchSelector"
+import {
+  setTitle,
+  setDescription,
+  setDate,
+  cancelForm,
+  createProject,
+} from "../store/index"
+import { ChangeEvent, FormEvent, useState } from "react"
 
 //Style Constants
 const LABEL_CLASSES = " text-2xl font-bold"
@@ -13,15 +19,10 @@ const BUTTON_CLASSES =
 
 // main function component
 function ProjectForm() {
-  const {
-    form,
-    addProject,
-    changeTitle,
-    changeDate,
-    changeDescription,
-    cancelForm,
-  } = useContextProvider()
-  const { date, description, title } = form
+  const dispatch = dispatchApp()
+  const { title, description, date } = selectorApp(state => {
+    return state.openForm
+  })
   const [isSubmit, setIsSubmit] = useState(false)
 
   // eventliseners
@@ -32,29 +33,34 @@ function ProjectForm() {
     setIsSubmit(true)
     if (date && description && title) {
       setIsSubmit(false)
-      addProject()
+      dispatch(
+        createProject({
+          title,
+          description,
+          date,
+        }),
+      )
     }
   }
   const handleCancelForm = () => {
-    cancelForm()
+    dispatch(cancelForm())
   }
   // Form inputs controllers
   const handleTitleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    changeTitle(event.target.value)
+    dispatch(setTitle(event.target.value))
     setIsSubmit(false)
   }
   const handleDescriptionChange = (event: ChangeEvent<HTMLInputElement>) => {
-    changeDescription(event.target.value)
+    dispatch(setDescription(event.target.value))
     setIsSubmit(false)
   }
   const handleDateChange = (event: ChangeEvent<HTMLInputElement>) => {
-    changeDate(event.target.value)
+    dispatch(setDate(event.target.value))
     setIsSubmit(false)
   }
 
   return (
     <div className="mt-auto mb-auto flex flex-col items-center">
-      <progress max={3} value={0} />
       <form onSubmit={handleSaveForm} className="flex flex-col gap-3">
         <div className="self-end">
           <button
