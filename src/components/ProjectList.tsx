@@ -1,5 +1,4 @@
 import { FiMenu } from "react-icons/fi"
-
 export type propsType = {
   onShow: (a: boolean) => void
   open: boolean
@@ -20,7 +19,6 @@ function ProjectDetails({ onShow, open }: propsType) {
         onClick={handleHide}
         className="sm:hidden hover:cursor-pointer hover:animate-pulse mb-3 absolute right-5 "
       />
-      Project Details
     </div>
   )
 }
