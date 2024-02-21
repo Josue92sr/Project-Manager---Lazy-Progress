@@ -1,4 +1,4 @@
-import { FiMenu } from "react-icons/fi"
+import { FiXCircle } from "react-icons/fi"
 import { dispatchApp, selectorApp } from "../hooks/useDispatchSelector"
 // import { useRef } from "react"
 import { selectProject, showFormScreen } from "../store/index"
@@ -8,7 +8,7 @@ export type propsType = {
   open: boolean
   firstRender?: number
 }
-
+let renderChecker = 0
 function ProjectDetails({ onShow, open }: propsType) {
   const dispatch = dispatchApp()
   const projectItemOb = selectorApp(state => {
@@ -30,7 +30,15 @@ function ProjectDetails({ onShow, open }: propsType) {
   const handleSelectProject = (id: string) => {
     dispatch(selectProject(id))
   }
+  let classes: string | undefined
+  if (renderChecker < 2) {
+    console.log(renderChecker)
+    classes = "hidden"
+  } else if (renderChecker >= 2) {
+    classes = ""
+  }
 
+  renderChecker++
   const projectLists = projectItemOb.map(project => {
     let selectedStyles = ""
     if (selectedId === project.id) selectedStyles = "bg-stone-600  "
@@ -50,9 +58,9 @@ function ProjectDetails({ onShow, open }: propsType) {
   //max-sm:animate-fade
   return (
     <div
-      className={` m-0 bg-stone-900 text-white w-full max-sm:absolute h-screen  p-5 sm:w-1/3 ${open ? "w-full max-sm:block" : " z-0 sm:block sm:static"}`}
+      className={` m-0 bg-stone-900 text-white w-full z-10 max-sm:absolute h-screen  p-5 sm:w-1/3 ${classes} ${open ? "w-full max-sm:animate-show  " : " max-sm:animate-fade  sm:block sm:static "}`}
     >
-      <FiMenu
+      <FiXCircle
         onClick={handleHide}
         className="sm:hidden hover:cursor-pointer hover:animate-pulse mb-3 absolute right-5 "
       />

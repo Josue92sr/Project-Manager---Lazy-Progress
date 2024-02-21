@@ -3,7 +3,7 @@ import ProjectList from "./components/ProjectList"
 import ProjectShow from "./components/ProjectShow"
 let firstRender = 0
 function App() {
-  const [isOpen, setIsOpen] = useState(true)
+  const [isOpen, setIsOpen] = useState(false)
 
   function handleShowDetails(param: boolean) {
     setIsOpen(param)

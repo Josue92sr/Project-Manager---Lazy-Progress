@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux"
 
 import { showFormScreen } from "../store/index"
-import image from "../assets/no-projects.png"
+import image from "../assets/no-project.png"
 function DefaultShow() {
   const dispatch = useDispatch()
   const handleNewForm = () => {
