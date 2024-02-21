@@ -1,26 +1,25 @@
 import { FiXCircle } from "react-icons/fi"
 import { dispatchApp, selectorApp } from "../hooks/useDispatchSelector"
 // import { useRef } from "react"
-import { selectProject, showFormScreen } from "../store/index"
+import { selectProject, showFormScreen, openDetails } from "../store/index"
 
 export type propsType = {
-  onShow: (a: boolean) => void
-  open: boolean
   firstRender?: number
 }
 let renderChecker = 0
-function ProjectDetails({ onShow, open }: propsType) {
+function ProjectDetails() {
   const dispatch = dispatchApp()
   const projectItemOb = selectorApp(state => {
     return state.project.data
   })
+  const open = selectorApp(state => state.screen.isListOpen)
   const { selectedId } = selectorApp(state => {
     return state.project
   })
 
   // const refProject = useRef(null)
   const handleHide = () => {
-    onShow(false)
+    dispatch(openDetails())
   }
 
   const handleShowForm = () => {
@@ -48,7 +47,7 @@ function ProjectDetails({ onShow, open }: propsType) {
         // ref={refProject}
         key={project.id}
         onClick={e => handleSelectProject(project.id)}
-        className={`py-2 px-3 hover:cursor-pointer text-stone-200 min-w-[80vw] max-w-[80vw] sm:min-w-[35vw] sm:max-w-[35vw] ${selectedStyles}`}
+        className={`py-2 px-3 hover:cursor-pointer text-stone-200 min-w-[80%] max-w-[80%] sm:min-w-[25vw] sm:max-w-[25vw] ${selectedStyles}`}
       >
         {project.title}
       </div>
@@ -64,17 +63,18 @@ function ProjectDetails({ onShow, open }: propsType) {
         onClick={handleHide}
         className="sm:hidden hover:cursor-pointer hover:animate-pulse mb-3 absolute right-5 "
       />
-
-      <h1 className="text-3xl  font-semibold sm:mt-10 text-stone-200 ">
-        Your Projects
-      </h1>
-      <button
-        onClick={handleShowForm}
-        className="mt-10 border border-stone-200 p-3 rounded-xl bg-stone-600 hover:bg-stone-700 text-stone-300 mb-5"
-      >
-        Add a Project
-      </button>
-      {projectLists}
+      <div className="flex flex-col items-start">
+        <h1 className="text-3xl  font-semibold sm:mt-10 text-stone-200 ">
+          Your Projects
+        </h1>
+        <button
+          onClick={handleShowForm}
+          className="mt-10 border border-stone-200 p-3 rounded-xl bg-stone-600 hover:bg-stone-700 text-stone-300 mb-5"
+        >
+          Add a Project
+        </button>
+        {projectLists}
+      </div>
     </div>
   )
 }

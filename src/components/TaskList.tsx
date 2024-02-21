@@ -2,6 +2,7 @@ import { dispatchApp, selectorApp } from "../hooks/useDispatchSelector"
 
 import { createTask, deleteTask } from "../store/index"
 import { ChangeEvent, useState } from "react"
+import { useEffect } from "react"
 function TaskList() {
   const dispatch = dispatchApp()
   const { tasks } = selectorApp(state => {
@@ -9,9 +10,14 @@ function TaskList() {
       return project.id === state.project.selectedId
     })
   })!
-
+  const { selectedId } = selectorApp(state => state.project)!
   const [isSubmit, setIsSubmit] = useState(false)
   const [taskDescription, setTaskDescription] = useState("")
+
+  // this effect deletes the input value once that the project selected changes
+  useEffect(() => {
+    setTaskDescription("")
+  }, [selectedId])
 
   // event listeners
   const handleAddTask = () => {
@@ -19,6 +25,7 @@ function TaskList() {
     if (taskDescription) {
       dispatch(createTask(taskDescription))
       setIsSubmit(false)
+      setTaskDescription("")
     }
   }
   const handleTaskChange = (e: ChangeEvent<HTMLInputElement>) => {

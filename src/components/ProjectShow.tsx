@@ -1,15 +1,17 @@
-import { propsType } from "./ProjectList"
 import { FiMenu } from "react-icons/fi"
-import { selectorApp } from "../hooks/useDispatchSelector"
+import { dispatchApp, selectorApp } from "../hooks/useDispatchSelector"
 
 import ProjectDetails from "./ProjectDetails"
 import DefaultShow from "./DefaultShow"
 import ProjectForm from "./ProjectForm"
+import { openListProject } from "../store/index"
 
-function ProjectList({ onShow, open }: propsType) {
+function ProjectList() {
+  const dispatch = dispatchApp()
   const pageToShow = selectorApp(state => {
-    return state.openForm.showDetails
+    return state.screen.showDetails
   })
+  const open = selectorApp(state => state.screen.isListOpen)
 
   let renderPage: React.JSX.Element | undefined
   if (pageToShow === "form") renderPage = <ProjectForm />
@@ -17,7 +19,7 @@ function ProjectList({ onShow, open }: propsType) {
   if (pageToShow === "landing") renderPage = <DefaultShow />
 
   const handleShow = () => {
-    onShow(true)
+    dispatch(openListProject())
   }
   return (
     <div

@@ -1,14 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit"
 import formSlice from "./formSlice"
-import {
-  showDetailScreen,
-  showFormScreen,
-  setTitle,
-  setDescription,
-  setDate,
-  cancelForm,
-} from "./formSlice"
+import { setTitle, setDescription, setDate, cancelForm } from "./formSlice"
+
 import projectSlice from "./projectSlice"
+
 import {
   createProject,
   selectProject,
@@ -16,12 +11,24 @@ import {
   deleteProject,
   deleteTask,
 } from "./projectSlice"
+
+import {
+  openDetails,
+  openListProject,
+  showDetailScreen,
+  showFormScreen,
+} from "./screenSlice"
+
+import screenSlice from "./screenSlice"
+
 const store = configureStore({
   reducer: {
     openForm: formSlice,
     project: projectSlice,
+    screen: screenSlice,
   },
 })
+
 export default store
 export {
   showDetailScreen,
@@ -35,6 +42,8 @@ export {
   createTask,
   deleteProject,
   deleteTask,
+  openListProject,
+  openDetails,
 }
 
 // to use a better dispatch and selector in components
