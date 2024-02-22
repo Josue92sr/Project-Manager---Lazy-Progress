@@ -44,6 +44,7 @@ const screenSlice = createSlice({
 
     builder.addCase(selectProject, state => {
       state.showDetails = "details"
+      state.isListOpen = false
     })
 
     builder.addCase(deleteProject, state => {

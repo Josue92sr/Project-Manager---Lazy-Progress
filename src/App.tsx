@@ -10,17 +10,9 @@ function App() {
   }
   firstRender++
   return (
-    <div className=" sm:flex w-screen h-screen p-0 m-0 overflow-hidden max-sm:relative ">
-      <ProjectList
-        onShow={handleShowDetails}
-        open={isOpen}
-        firstRender={firstRender}
-      />
-      <ProjectShow
-        onShow={handleShowDetails}
-        open={isOpen}
-        firstRender={firstRender}
-      />
+    <div className=" sm:flex w-screen h-screen p-0 m-0 overflow-hidden max-sm:relative  max-w-[100vw] max-h-[100vh]">
+      <ProjectList />
+      <ProjectShow />
     </div>
   )
 }

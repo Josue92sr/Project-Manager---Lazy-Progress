@@ -35,8 +35,8 @@ export default {
       },
       animation: {
         showEl: "showEl 1.5s 1 forwards",
-        fade: "fade 2s 1 forwards",
-        show: "show 2s 1 forwards",
+        fade: "fade 0.4s 1 forwards",
+        show: "show 0.4s 1 forwards",
       },
     },
   },

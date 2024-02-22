@@ -1,6 +1,6 @@
 * {
-  margin: 0;
-  padding: 0;
+  margin: 10;
+  padding: 10;
   box-sizing: border-box;
 }
 div {
@@ -9,17 +9,20 @@ div {
   position: absolute;
 }
 .one {
-  background-color: black;
-  color: white;
+  /* background-color: black;
+  color: white; */
   z-index: 2;
 }
-.two {
+li {
+  list-style-type: upper-roman;
+}
+/* .two {
   background-color: blue;
   color: white;
   z-index: 2;
   animation: show 1s 1;
   animation-fill-mode: forwards;
-}
+} */
 
 @keyframes show {
   0% {
